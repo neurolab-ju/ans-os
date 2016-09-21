@@ -1,10 +1,13 @@
 # Aproximal numerical system paradigm
 ## OpenSesame experiment adaptation
+
+<img src="http://img15.deviantart.net/46b2/i/2010/229/0/f/vector_fish_by_chiragtheoo7.jpg" align="right" width="300">
+
 **Authors:**<br>
 
-- Michala Plassova
-- Michal Vavrecka
-- Michael Tesar
+- Michala Plassova <michala.plassova@seznam.cz>
+- Michal Vavrecka <vavrecka.michal@gmail.com>
+- Michael Tesar <michtesar@gmail.com>
 
 **Web:**
 [http://www.pf.jcu.cz/structure/departments/kpe/neurolab/](http://www.pf.jcu.cz/structure/departments/kpe/neurolab/)
@@ -102,7 +105,7 @@ Response is done by gaming mouse with smalles possible latency (wired) which has
 - [ ] After experiment finish there is overview screen (sketchpad)
 - [ ] New instuction stimuli (start in 3..2..1...go, this is testing you can try this out, this is pause do what you want)
 
-# Additional recommendations
+# Additional recommendations @MisaPlassova
  1. Prepare and send me new instructions
  2. Think about SB task in tablet (it takes some time to code it and test it - several weeks)
  3. Test final experiment (behavioral) before 2nd pilot
