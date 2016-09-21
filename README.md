@@ -27,7 +27,7 @@ git clone https://github.com/neurolab-ju/ans-os.git
 ```
 
 ## How to run
-You need to install OpenSesame on your operating system. Paradigm is written on macOS Sierra but is completly cross-platform so you can run experiment on Windows, Linux and maxOS.
+You need to install OpenSesame on your operating system. Paradigm is written on macOS Sierra but is completly cross-platform so you can run experiment on Windows, Linux and macOS.
  1. Download and install OpenSesame 3.1 at [http://osdoc.cogsci.nl/3.1/download/](http://osdoc.cogsci.nl/3.1/download/)
  1. Download latest version of experiment here on GitHub or by you Git client
  1. Open downloaded experiment in OpenSesame (*.osexp)
@@ -77,6 +77,7 @@ Five rounds represents **one block** which takes about 4 minutes. Then goes manu
 
 ### Another EEG triggers
 | Event            | Trigger in EEG |
+|------------------|----------------|
 | EEG start        | 254            |
 | EEG stop         | 255            |
 | Correct answer   | 1              |
