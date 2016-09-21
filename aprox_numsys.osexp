@@ -100,6 +100,7 @@ define inline_script Initialization
 	var.STIMULI_DURATION = 1500
 	var.TRIAL = 1
 	var.STIMULI = ""
+	var.BLOCK_PAUSE = 5
 	__end__
 	set _prepare ""
 
@@ -203,6 +204,17 @@ define inline_script RepeatSequence
 	# Try to list the MainLoop if doen't crash
 	# iterate trough the whole MainLoop and
 	# try next time.
+	
+	# BUG: 
+	# Last level remains on each new run it is bug needs to be fixed
+	
+	# TO-DO:
+	# This should work with module when true it is pause block and
+	# whole try and except part I would place into while true loop
+	
+	# Get true/false if it is pause
+	isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
+	
 	try:
 		exp.items['MainExperiment'].prepare()
 		exp.items['MainExperiment'].run()
