@@ -62,7 +62,7 @@ define feedback Feedback
 define sketchpad Finish
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Experiment is finaly over" x=0.0 y=0.0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Experiment is finaly over" x=0 y=0 z_index=0
 
 define sequence Finishing
 	set flush_keyboard yes
@@ -208,18 +208,25 @@ define inline_script RepeatSequence
 	# BUG: 
 	# Last level remains on each new run it is bug needs to be fixed
 	
-	# TO-DO:
-	# This should work with module when true it is pause block and
-	# whole try and except part I would place into while true loop
-	
 	# Get true/false if it is pause
 	isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
 	
-	try:
-		exp.items['MainExperiment'].prepare()
-		exp.items['MainExperiment'].run()
-	except:
-		print "Experiment is over. Happy."
+	# For times when it is a pause
+	if isPause:
+		print "PAUSE"
+		# Then simply run experiment another time
+		try:
+			exp.items['MainExperiment'].prepare()
+			exp.items['MainExperiment'].run()
+		except:
+			print "Experiment is over. Happy."
+	# For times when it is not a pause		
+	else:
+		try:
+			exp.items['MainExperiment'].prepare()
+			exp.items['MainExperiment'].run()
+		except:
+			print "Experiment is over. Happy."
 	__end__
 	set _prepare ""
 
