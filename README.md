@@ -18,10 +18,6 @@ pilot stage
 ```
 2nd pilot measurement is planned to 30.9.2016
 
-**Quick notes:**
-- We should include a block pause (5 block in the row, then manual pause with 8 times repetition)
-- Run lasted about 20 minutes (14 blocks) 
-
 ## How to download
 First download Github desktop app or any other Git client if needed. Then download repository by git command or in any Git application by user graphical interface.
 
