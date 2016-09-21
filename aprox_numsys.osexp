@@ -42,7 +42,7 @@ set background black
 define sketchpad BlankAnswer
 	set duration 0
 	set description "Show fixation cross while participant can respond to expeirmental task by mouse click"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=70 html=yes show_if=always text="+" x=0 y=0 z_index=0
+	draw fixdot color=white show_if=always style=default x=0 y=0 z_index=0
 
 define sequence Experiment
 	set flush_keyboard yes
@@ -66,15 +66,26 @@ define sequence Finishing
 define sketchpad FishCluster
 	set duration "[STIMULI_DURATION]"
 	set description "Presents main experimental condition e.g., fish cluster of two colors"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[log_11]" x=0 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[STIMULI]" x=0 y=0 z_index=0
 
 define sequence FishTrial
 	set flush_keyboard yes
 	set description "Trial sequence"
+	run GetStimuli always
 	run FishCluster always
 	run BlankAnswer always
 	run MouseLogger always
 	run WriteLog always
+
+define inline_script GetStimuli
+	set description "Executes Python code"
+	___run__
+	# Generate name of MainLoop fish cluster variable
+	# and pass it into FishCluster object as string
+	# pointer
+	var.STIMULI = "[log_" + str(var.LEVEL) + "]"
+	__end__
+	set _prepare ""
 
 define inline_script Initialization
 	set description "Initialize global variables and print the info for experimenter"
@@ -102,6 +113,7 @@ define sequence MainExperiment
 	run MainLoop always
 	run SetLevel always
 	run Feedback always
+	run RepeatSequence always
 
 define loop MainLoop
 	set source table
@@ -171,6 +183,11 @@ define keyboard_response MouseLogger
 	set description "Collects keyboard responses"
 	set correct_response "[correct]"
 	set allowed_responses "r;b"
+
+define inline_script RepeatSequence
+	set description "Executes Python code"
+	set _run ""
+	set _prepare ""
 
 define inline_script SetLevel
 	set description "Executes Python code"
