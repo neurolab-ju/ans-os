@@ -5,16 +5,19 @@ Platform: posix
 ---
 set width 1024
 set uniform_coordinates yes
-set title "New experiment"
+set title ANS_paradigm
 set subject_parity even
 set subject_nr 0
-set start experiment
+set start Experiment
 set sound_sample_size -16
 set sound_freq 48000
 set sound_channels 2
 set sound_buf_size 1024
+set sampler_backend legacy
 set round_decimals 2
 set my_const 10
+set mouse_backend xpyriment
+set keyboard_backend legacy
 set isTrue True
 set height 768
 set fullscreen no
@@ -25,46 +28,86 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "/Users/michaeltesar/Desktop"
+set experiment_path "/Users/michael/Developer/ans-os"
 set disable_garbage_collection yes
-set description "The main experiment item"
+set description "Aproximal numercial system paradigm by Plassova, Vavrecka and Tesar 2016, University of South Bohemia"
 set coordinates uniform
 set compensation 0
+set color_backend legacy
+set clock_backend legacy
 set canvas_backend xpyriment
 set bidi no
 set background black
 
-define sequence experiment
+define sketchpad BlankAnswer
+	set duration 0
+	set description "Show fixation cross while participant can respond to expeirmental task by mouse click"
+	draw textline center=1 color=white font_bold=no font_family=arabic font_italic=no font_size=70 html=yes show_if=always text="+" x=0 y=0 z_index=0
+
+define sequence Experiment
 	set flush_keyboard yes
-	set description "Runs a number of items in sequence"
-	run initialize always
-	run introduction always
-	run notepad always
-	run fish_loop always
-	run set_level always
-	run trial_feedback always
+	set description "Run whole experiment procedure"
+	run Initialization always
+	run Instructions always
+	run Training always
+	run MainExperiment always
+	run Finishing always
 
-define sketchpad fish_10
-	set duration 0
+define feedback Feedback
+	set reset_variables yes
+	set duration 1500
+	set description "Provides feedback to the participant"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=30 html=yes show_if=always text="Your reaction time: [avg_rt] ms<br />Your score: [acc] %" x=0 y=0 z_index=0
+
+define sequence Finishing
+	set flush_keyboard yes
+	set description "End experiment and shows a map to trasure"
+
+define sketchpad FishCluster
+	set duration "[STIMULI_DURATION]"
+	set description "Presents main experimental condition e.g., fish cluster of two colors"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[log_11]" x=0 y=0 z_index=0
+
+define sequence FishTrial
+	set flush_keyboard yes
+	set description "Trial sequence"
+	run FishCluster always
+	run BlankAnswer always
+	run MouseLogger always
+	run WriteLog always
+
+define inline_script Initialization
+	set description "Initialize global variables and print the info for experimenter"
+	___run__
+	var.LEVEL = 10
+	var.STIMULI_DURATION = 1500
+	var.TRIAL = 1
+	__end__
+	set _prepare ""
+
+define sequence Instructions
+	set flush_keyboard yes
+	set description "Run buch or intial instruction like game intro"
+	run Introduction always
+
+define sketchpad Introduction
+	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=50 html=yes show_if=always text="[log_10]" x=0 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Toto je testovací verze rybího experimentu" x=0 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Pro pokračování stiskněte libovolnou klávesu." x=0 y=64 z_index=0
 
-define sketchpad fish_11
-	set duration 0
-	set description "Displays stimuli"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=50 html=yes show_if=always text="[log_11]" x=0 y=0 z_index=0
+define sequence MainExperiment
+	set flush_keyboard yes
+	set description "Run main experient after instructions and training"
+	run MainLoop always
+	run SetLevel always
+	run Feedback always
 
-define sketchpad fish_12
-	set duration 0
-	set description "Displays stimuli"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=50 html=yes show_if=always text="[log_12]" x=0 y=0 z_index=0
-
-define loop fish_loop
-	set source_file ""
+define loop MainLoop
 	set source table
 	set repeat 1
 	set order random
-	set description "Repeatedly runs another item"
+	set description "Main loop with all stimuli loaded in table"
 	set cycles 10
 	set continuous no
 	set break_if_on_first yes
@@ -119,23 +162,9 @@ define loop fish_loop
 	setcycle 9 log_12 "log 1.2 10"
 	setcycle 9 color blue
 	setcycle 9 correct b
-	run trial
+	run FishTrial
 
-define inline_script initialize
-	set description "Executes Python code"
-	___run__
-	var.LOG = 10
-	var.SCORE = 0
-	__end__
-	set _prepare ""
-
-define sketchpad introduction
-	set duration keypress
-	set description "Displays stimuli"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Toto je testovací verze rybího experimentu" x=0 y=0 z_index=0
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Pro pokračování stiskněte libovolnou klávesu." x=0.0 y=64.0 z_index=0
-
-define keyboard_response keyboard
+define keyboard_response MouseLogger
 	set timeout infinite
 	set flush yes
 	set duration keypress
@@ -143,44 +172,37 @@ define keyboard_response keyboard
 	set correct_response "[correct]"
 	set allowed_responses "r;b"
 
-define logger logger
+define inline_script SetLevel
+	set description "Executes Python code"
+	___run__
+	# Print message to terminal first about 
+	# last block
+	msg = "Trial " + str(var.TRIAL) + "\t" + \
+	      "score " + str(exp.var.acc) + "%\t" + |
+	
+	# Set level based on achieved score in
+	# past 10 rounds of same level
+	try:
+		# Level down
+		if exp.var.acc < 60:
+			print "LEVEL DOWN"
+		# level up
+		elif exp.var.acc > 60:
+			print "LEVEL UP"
+	except:
+		print "ERROR! Cannot adjust level"
+	
+	# Iterate trial counter
+	var.TRIAL += 1
+	__end__
+	set _prepare ""
+
+define sequence Training
+	set flush_keyboard yes
+	set description "Training sequence with participant and experimenter at the same time"
+
+define logger WriteLog
 	set description "Logs experimental data"
 	set auto_log yes
 	log LOG
 
-define notepad notepad
-	__note__
-	liche R
-	sude Bpbbbrrrbbrrq
-	__end__
-	set description "A simple notepad to document your experiment. This plug-in does nothing."
-
-define inline_script set_level
-	set description "Executes Python code"
-	___run__
-	# Set proper level on score
-	if var.SCORE < 60:
-		print "LEVEL DOWN"
-	elif var.SCORE == 60:
-		print "LEVEL KEEP"
-	elif var.SCORE > 60:
-		print "LEVEL UP"
-	else:
-		print "Cannot adjust level"
-	__end__
-	set _prepare ""
-
-define sequence trial
-	set flush_keyboard yes
-	set description "Runs a number of items in sequence"
-	run fish_10 "[LOG] = 10"
-	run fish_11 "[LOG] = 11"
-	run fish_12 "[LOG] = 12"
-	run keyboard always
-	run logger always
-
-define feedback trial_feedback
-	set reset_variables yes
-	set duration 1500
-	set description "Provides feedback to the participant"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=30 html=yes show_if=always text="Your reaction time: [avg_rt] ms<br />Your score: [acc] %" x=0 y=0 z_index=0
