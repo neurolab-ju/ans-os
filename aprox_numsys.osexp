@@ -85,43 +85,37 @@ define sequence Finishing
 	set description "End experiment and shows a map to trasure"
 	run Finish always
 
-define sketchpad FishCluster
-	set duration "[STIMULI_DURATION]"
+define sketchpad FishCluster10
+	set duration 1500
 	set description "Presents main experimental condition e.g., fish cluster of two colors"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[STIMULI]" x=0 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[log_10]" x=0 y=0 z_index=0
+
+define sketchpad FishCluster11
+	set duration 1500
+	set description "Presents main experimental condition e.g., fish cluster of two colors"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[log_11]" x=0 y=0 z_index=0
+
+define sketchpad FishCluster12
+	set duration 1500
+	set description "Presents main experimental condition e.g., fish cluster of two colors"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[log_12]" x=0 y=0 z_index=0
 
 define sequence FishTrial
 	set flush_keyboard yes
 	set description "Trial sequence"
-	run GetStimuli always
-	run FishCluster always
+	run FishCluster11 "[LEVEL] == 11"
+	run FishCluster10 "[LEVEL] == 10"
+	run FishCluster12 "[LEVEL] == 12"
 	run BlankAnswer always
 	run MouseLogger always
 	run CountScore always
 	run WriteLog always
 
-define inline_script GetStimuli
-	set description "Executes Python code"
-	___run__
-	# Generate name of MainLoop fish cluster variable
-	# and pass it into FishCluster object as string
-	# pointer
-	var.STIMULI = "[log_" + str(var.LEVEL) + "]"
-	print var.STIMULI
-	__end__
-	set _prepare ""
-
-define sketchpad InitialFixation
-	set duration "[STIMULI_DURATION]"
-	set description "First trial is witou fixation before, so this is a fix"
-	draw fixdot color=white show_if=always style=default x=0 y=0 z_index=0
-
 define inline_script Initialization
 	set description "Initialize global variables and print the info for experimenter"
 	___run__
-	var.LEVEL = 11
+	var.LEVEL = 10
 	var.SCORE = 0
-	var.STIMULI_DURATION = 1500
 	var.TRIAL = 1
 	var.STIMULI = ""
 	var.BLOCK_PAUSE = 5
@@ -143,7 +137,6 @@ define sketchpad Introduction
 define sequence MainExperiment
 	set flush_keyboard yes
 	set description "Run main experient after instructions and training"
-	run InitialFixation always
 	run MainLoop always
 	run SetLevel always
 	run Feedback always
@@ -231,9 +224,6 @@ define inline_script RepeatSequence
 	# Try to list the MainLoop if doen't crash
 	# iterate trough the whole MainLoop and
 	# try next time.
-	
-	# BUG: 
-	# Last level remains on each new run it is bug needs to be fixed
 	
 	# Get true/false if it is pause
 	isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
