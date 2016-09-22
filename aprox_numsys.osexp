@@ -104,8 +104,8 @@ define sketchpad FishCluster12
 define sequence FishTrial
 	set flush_keyboard yes
 	set description "Trial sequence"
-	run FishCluster11 "[LEVEL] == 11"
 	run FishCluster10 "[LEVEL] == 10"
+	run FishCluster11 "[LEVEL] == 11"
 	run FishCluster12 "[LEVEL] == 12"
 	run BlankAnswer always
 	run MouseLogger always
