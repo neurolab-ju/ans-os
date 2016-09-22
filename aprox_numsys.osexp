@@ -125,7 +125,6 @@ define inline_script Initialization
 	var.TRIAL = 1
 	var.BLOCK_PAUSE = 2
 	var.DEBUG = True
-	var.PAUSE = False
 	__end__
 	set _prepare ""
 
@@ -147,7 +146,6 @@ define sequence MainExperiment
 	run SetLevel always
 	run Feedback always
 	run RepeatSequence always
-	run BlockPause "[PAUSE] == True"
 
 define loop MainLoop
 	set source_file ""
@@ -228,12 +226,17 @@ define inline_script RepeatSequence
 	# minutes). Or when participant won or 
 	# lose quicker.
 	
-	# Get true/false if it is pause
-	var.PAUSE = False
-	var.PAUSE = var.TRIAL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
+	# If modulo return 0 it is pause
+	isPause = (var.TRIAL % var.BLOCK_PAUSE) == 0	
+	if isPause:
+		exp.items["BlockPause"].prepare()
+		exp.items["BlockPause"].run()
 	
 	# Null the score for next run
 	var.SCORE = 0
+	
+	# Iterate trial counter
+	var.TRIAL += 1
 	
 	# Decide if game continues
 	#if (not lost) or (not won):
@@ -269,9 +272,6 @@ define inline_script SetLevel
 	# Level down
 	elif var.SCORE <= 5:
 		var.LEVEL += 1
-	
-	# Iterate trial counter
-	var.TRIAL += 1
 	__end__
 	set _prepare ""
 
