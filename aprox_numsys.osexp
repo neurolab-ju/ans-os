@@ -232,12 +232,16 @@ define inline_script RepeatSequence
 	# Get true/false if it is pause
 	var.isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
 	
+	# Null the score for next run
+	var.SCORE = 0
+	
 	# Get true/false about ending
 	lost = var.LEVEL <= 10
 	won = var.LEVEL >= 12
 	
 	# Decide if game continues
 	if (not lost) or (not won):
+		print "game continues"
 		# try to repeat sequence
 		try:
 			exp.items['MainExperiment'].prepare()
@@ -275,9 +279,6 @@ define inline_script SetLevel
 	
 	# Iterate trial counter
 	var.TRIAL += 1
-	
-	# Null the score for next run
-	var.SCORE = 0
 	__end__
 	set _prepare ""
 
