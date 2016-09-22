@@ -136,62 +136,63 @@ define loop MainLoop
 	setcycle 0 log_10 "log 1.0 1"
 	setcycle 0 log_11 "log 1.1 1"
 	setcycle 0 log_12 "log 1.2 1"
-	setcycle 0 color red
-	setcycle 0 correct r
+	setcycle 0 color orange
+	setcycle 0 correct left_button
 	setcycle 1 log_10 "log 1.0 2"
 	setcycle 1 log_11 "log 1.1 2"
 	setcycle 1 log_12 "log 1.2 2"
 	setcycle 1 color blue
-	setcycle 1 correct b
+	setcycle 1 correct right_button
 	setcycle 2 log_10 "log 1.0 3"
 	setcycle 2 log_11 "log 1.1 3"
 	setcycle 2 log_12 "log 1.2 3"
-	setcycle 2 color red
-	setcycle 2 correct r
+	setcycle 2 color orange
+	setcycle 2 correct left_button
 	setcycle 3 log_10 "log 1.0 4"
 	setcycle 3 log_11 "log 1.1 4"
 	setcycle 3 log_12 "log 1.2 4"
 	setcycle 3 color blue
-	setcycle 3 correct b
+	setcycle 3 correct right_button
 	setcycle 4 log_10 "log 1.0 5"
 	setcycle 4 log_11 "log 1.1 5"
 	setcycle 4 log_12 "log 1.2 5"
-	setcycle 4 color red
-	setcycle 4 correct r
+	setcycle 4 color orange
+	setcycle 4 correct left_button
 	setcycle 5 log_10 "log 1.0 6"
 	setcycle 5 log_11 "log 1.1 6"
 	setcycle 5 log_12 "log 1.2 6"
-	setcycle 5 color blur
-	setcycle 5 correct b
+	setcycle 5 color blue
+	setcycle 5 correct right_button
 	setcycle 6 log_10 "log 1.0 7"
 	setcycle 6 log_11 "log 1.1 7"
 	setcycle 6 log_12 "log 1.2 7"
-	setcycle 6 color red
-	setcycle 6 correct r
+	setcycle 6 color orange
+	setcycle 6 correct left_button
 	setcycle 7 log_10 "log 1.0 8"
 	setcycle 7 log_11 "log 1.1 8"
 	setcycle 7 log_12 "log 1.2 8"
 	setcycle 7 color blue
-	setcycle 7 correct b
+	setcycle 7 correct right_button
 	setcycle 8 log_10 "log 1.0 9"
 	setcycle 8 log_11 "log 1.1 9"
 	setcycle 8 log_12 "log 1.2 9"
-	setcycle 8 color red
-	setcycle 8 correct r
+	setcycle 8 color orange
+	setcycle 8 correct left_button
 	setcycle 9 log_10 "log 1.0 10"
 	setcycle 9 log_11 "log 1.1 10"
 	setcycle 9 log_12 "log 1.2 10"
 	setcycle 9 color blue
-	setcycle 9 correct b
+	setcycle 9 correct right_button
 	run FishTrial
 
-define keyboard_response MouseLogger
+define mouse_response MouseLogger
 	set timeout infinite
+	set show_cursor yes
 	set flush yes
-	set duration keypress
-	set description "Collects keyboard responses"
+	set duration mouseclick
+	set description "Collects mouse responses"
 	set correct_response "[correct]"
-	set allowed_responses "r;b"
+	set allowed_responses "left_button;right_button"
 
 define inline_script RepeatSequence
 	set description "Repeat until enough block were played or particapnt win or lose"
