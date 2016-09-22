@@ -19,6 +19,7 @@ set my_const 10
 set mouse_backend xpyriment
 set keyboard_backend legacy
 set isTrue True
+set isPause False
 set height 768
 set fullscreen no
 set form_clicks no
@@ -73,7 +74,7 @@ define feedback Feedback
 	set reset_variables yes
 	set duration 1500
 	set description "Provides feedback to the participant"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=30 html=yes show_if=always text="Your reaction time: [avg_rt] ms<br />Your score: [acc] %" x=0 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=30 html=yes show_if=always text="Your reaction time: [avg_rt] ms<br />Your score: [SCORE]0 %" x=0 y=0 z_index=0
 
 define sketchpad Finish
 	set duration keypress
@@ -120,6 +121,7 @@ define inline_script Initialization
 	var.STIMULI = ""
 	var.BLOCK_PAUSE = 5
 	var.DEBUG = True
+	var.isPause = False
 	__end__
 	set _prepare ""
 
@@ -127,6 +129,11 @@ define sequence Instructions
 	set flush_keyboard yes
 	set description "Run buch or intial instruction like game intro"
 	run Introduction always
+
+define sketchpad InterblockPause
+	set duration keypress
+	set description "Pause in between every 5 blocks in the row"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[isPause] == \"yes\"" text="Mezibloková pauza" x=0 y=0 z_index=0
 
 define sketchpad Introduction
 	set duration keypress
@@ -141,6 +148,7 @@ define sequence MainExperiment
 	run SetLevel always
 	run Feedback always
 	run RepeatSequence always
+	run InterblockPause "[isPause] == \"yes\""
 
 define loop MainLoop
 	set source_file ""
@@ -221,37 +229,22 @@ define inline_script RepeatSequence
 	# minutes). Or when participant won or 
 	# lose quicker.
 	
-	# Try to list the MainLoop if doen't crash
-	# iterate trough the whole MainLoop and
-	# try next time.
-	
 	# Get true/false if it is pause
-	isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
-	# Try to run another time
-	try:
-		exp.items['GetStimuli'].prepare()
-		exp.items['FishCluster'].prepare()
-		exp.items['BlankAnswer'].prepare()
-		exp.items['MouseLogger'].prepare()
-		exp.items['CountScore'].prepare()
-		exp.items['WriteLog'].prepare()
-		exp.items['SetLevel'].prepare()
-		exp.items['Feedback'].prepare()
-		exp.items['RepeatSequence'].prepare()
-	# If crash then it goes to next objects
-	except:
-		print "Experiment is over!"
-	# If not crash the run loaded objects
-	else:
-		exp.items['GetStimuli'].run()
-		exp.items['FishCluster'].run()
-		exp.items['BlankAnswer'].run()
-		exp.items['MouseLogger'].run()
-		exp.items['CountScore'].run()
-		exp.items['WriteLog'].run()
-		exp.items['SetLevel'].run()
-		exp.items['Feedback'].run()
-		exp.items['RepeatSequence'].run()
+	var.isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
+	
+	# Get true/false about ending
+	lost = var.LEVEL <= 10
+	won = var.LEVEL >= 12
+	
+	# Decide if game continues
+	if (not lost) or (not won):
+		# try to repeat sequence
+		try:
+			exp.items['MainExperiment'].prepare()
+			exp.items['MainExperiment'].run()
+		# If crash then it goes to next objects
+		except:
+			print "Experiment is over!"
 	__end__
 	set _prepare ""
 
