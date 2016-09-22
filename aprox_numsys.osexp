@@ -51,7 +51,7 @@ define sketchpad BlankAnswer
 define sketchpad BlockPause
 	set duration keypress
 	set description "Displays stimuli"
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=Pauza x=0.0 y=0.0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=100 html=yes show_if=always text=Pauza x=0.0 y=0.0 z_index=0
 
 define inline_script CountScore
 	set description "Executes Python code"
@@ -125,7 +125,7 @@ define inline_script Initialization
 	var.TRIAL = 1
 	var.BLOCK_PAUSE = 2
 	var.DEBUG = True
-	var.isPause = False
+	var.PAUSE = False
 	__end__
 	set _prepare ""
 
@@ -147,7 +147,7 @@ define sequence MainExperiment
 	run SetLevel always
 	run Feedback always
 	run RepeatSequence always
-	run BlockPause "[isPause] == \"yes\""
+	run BlockPause "[PAUSE] == True"
 
 define loop MainLoop
 	set source_file ""
@@ -229,7 +229,8 @@ define inline_script RepeatSequence
 	# lose quicker.
 	
 	# Get true/false if it is pause
-	var.isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
+	var.PAUSE = False
+	var.PAUSE = var.TRIAL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
 	
 	# Null the score for next run
 	var.SCORE = 0
