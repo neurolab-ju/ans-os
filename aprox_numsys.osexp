@@ -43,9 +43,22 @@ define sketchpad BlankAnswer
 	set duration 0
 	set description "Show fixation cross while participant can respond to expeirmental task by mouse click"
 	draw fixdot color=white show_if=always style=default x=0 y=0 z_index=0
-	draw textline center=1 color="#00ff00" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[DEBUG] == \"yes\"" text="Správně [acc]" x=0 y=-320 z_index=0
-	draw textline center=1 color="#0080ff" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[DEBUG] == \"yes\"" text="Level [LEVEL]" x=0.0 y=-288.0 z_index=0
-	draw textline center=1 color="#ffff66" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[DEBUG] == \"yes\"" text="Kolo [TRIAL]" x=0.0 y=-256.0 z_index=0
+	draw textline center=1 color="#00ff00" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[DEBUG] == \"yes\"" text="Správně [SCORE]" x=0 y=-320 z_index=0
+	draw textline center=1 color="#0080ff" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[DEBUG] == \"yes\"" text="Level [LEVEL]" x=0 y=-288 z_index=0
+	draw textline center=1 color="#ffff66" font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if="[DEBUG] == \"yes\"" text="Kolo [TRIAL]" x=0 y=-256 z_index=0
+
+define inline_script CountScore
+	set description "Executes Python code"
+	___run__
+	# I cannot use exp.var.acc because it
+	# is expressed in percentage in relative
+	# way (across all block and I want just
+	# in one block) so I use global variable
+	# score which do the job.
+	if exp.var.correct == 1:
+		var.SCORE += 1
+	__end__
+	set _prepare ""
 
 define sequence Experiment
 	set flush_keyboard yes
@@ -84,6 +97,7 @@ define sequence FishTrial
 	run FishCluster always
 	run BlankAnswer always
 	run MouseLogger always
+	run CountScore always
 	run WriteLog always
 
 define inline_script GetStimuli
@@ -93,13 +107,20 @@ define inline_script GetStimuli
 	# and pass it into FishCluster object as string
 	# pointer
 	var.STIMULI = "[log_" + str(var.LEVEL) + "]"
+	print var.STIMULI
 	__end__
 	set _prepare ""
+
+define sketchpad InitialFixation
+	set duration "[STIMULI_DURATION]"
+	set description "First trial is witou fixation before, so this is a fix"
+	draw fixdot color=white show_if=always style=default x=0 y=0 z_index=0
 
 define inline_script Initialization
 	set description "Initialize global variables and print the info for experimenter"
 	___run__
 	var.LEVEL = 11
+	var.SCORE = 0
 	var.STIMULI_DURATION = 1500
 	var.TRIAL = 1
 	var.STIMULI = ""
@@ -122,6 +143,7 @@ define sketchpad Introduction
 define sequence MainExperiment
 	set flush_keyboard yes
 	set description "Run main experient after instructions and training"
+	run InitialFixation always
 	run MainLoop always
 	run SetLevel always
 	run Feedback always
@@ -215,23 +237,31 @@ define inline_script RepeatSequence
 	
 	# Get true/false if it is pause
 	isPause = var.LEVEL % var.BLOCK_PAUSE == 0	# If modulo return 0 it is pause
-	
-	# For times when it is a pause
-	if isPause:
-		print "PAUSE"
-		# Then simply run experiment another time
-		try:
-			exp.items['MainExperiment'].prepare()
-			exp.items['MainExperiment'].run()
-		except:
-			print "Experiment is over. Happy."
-	# For times when it is not a pause		
+	# Try to run another time
+	try:
+		exp.items['GetStimuli'].prepare()
+		exp.items['FishCluster'].prepare()
+		exp.items['BlankAnswer'].prepare()
+		exp.items['MouseLogger'].prepare()
+		exp.items['CountScore'].prepare()
+		exp.items['WriteLog'].prepare()
+		exp.items['SetLevel'].prepare()
+		exp.items['Feedback'].prepare()
+		exp.items['RepeatSequence'].prepare()
+	# If crash then it goes to next objects
+	except:
+		print "Experiment is over!"
+	# If not crash the run loaded objects
 	else:
-		try:
-			exp.items['MainExperiment'].prepare()
-			exp.items['MainExperiment'].run()
-		except:
-			print "Experiment is over. Happy."
+		exp.items['GetStimuli'].run()
+		exp.items['FishCluster'].run()
+		exp.items['BlankAnswer'].run()
+		exp.items['MouseLogger'].run()
+		exp.items['CountScore'].run()
+		exp.items['WriteLog'].run()
+		exp.items['SetLevel'].run()
+		exp.items['Feedback'].run()
+		exp.items['RepeatSequence'].run()
 	__end__
 	set _prepare ""
 
@@ -242,7 +272,7 @@ define inline_script SetLevel
 	# last block
 	lvl = str(var.LEVEL)	# Get string to parse it for log
 	msg = "Trial " + str(var.TRIAL) + "\t" + \
-	      "score " + str(exp.var.acc) + "%\t" + \
+	      "score " + str(var.SCORE) + "0%\t" + \
 		  "log " + lvl[0] + "." + \
 		  lvl[1]
 	print(msg)
@@ -251,10 +281,10 @@ define inline_script SetLevel
 	# past 10 rounds of same level
 	try:
 		# Level down
-		if exp.var.acc < 60:
+		if var.SCORE < 60:
 			var.LEVEL -= 1
 		# level up
-		elif exp.var.acc > 60:
+		elif var.SCORE > 60:
 			var.LEVEL += 1
 	except:
 		# The biggest nightmare
@@ -262,6 +292,9 @@ define inline_script SetLevel
 	
 	# Iterate trial counter
 	var.TRIAL += 1
+	
+	# Null the score for next run
+	var.SCORE = 0
 	__end__
 	set _prepare ""
 
