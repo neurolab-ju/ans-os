@@ -16,7 +16,6 @@
 ```
 pilot stage
 ```
-2nd pilot measurement is planned to 30.9.2016
 
 ## How to download
 First download Github desktop app or any other Git client if needed. Then download repository by git command or in any Git application by user graphical interface.
