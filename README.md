@@ -42,18 +42,11 @@ You need to install OpenSesame on your operating system. Paradigm is written on 
 This is done in loop cycle for difficulty logs from 2.5 (LOG_25)to 1.1 (LOG_11). But event that it is specified in inicialization script handy variables such as:
 
 ```python
-MAX_LOG = 25    # maximum log difficulty of 2.5
-MIN_LOG = 11    # minimum log difficulty of 1.1
-DEBUG = True    # set debugging setter to "yes"
+DEBUG = True    # set debugging setter to "yes" - then all of objects act like it
 LEVEL = 24      # experiment start at log difficulty of 2.4
-STIMULI_DURATION = 1500 # duration of FishCluster sketchpad
-BLOCK_COUNTER = 6 # declare and initialize maximum block appearence
-BLOCK_CYCLES = 5  # declare and initialize block counter in one cycle
+BLOCK_LIMIT = 30 # maximum of 30 itteration (absolute)
+BLOCK_PAUSE = 5  # inter-block pause in each 5 block in a round
 ```
-
-Each round is specified of its **log difficulty** setted up by number from 25 (log 2.5 - super easy) to 11 (log 1.1 pretty hard). This one round starts at log difficulty 2.4 (LOG_24) and contains (same as other rounds) **10 trials per round**. Each of those trials are counter ballanced (there is equal chance to orange and blue fish appearence). After round ends experiment computes its score based on main loop cycle. If participant **score < 6 = level down, score > 6 = level up** or **score = 6** keep level. This is because when there is counter-ballance condition and participant would keeps pressing one button, then it would pass to next level or keep the particular level. If he do this we expect him to not know the correct answers and should go level down, e.g. easier version of fish cluster.
-
-Five rounds represents **one block** which takes about 4 minutes. Then goes manully continuous (keypress on keyboard) pause. After that goes another block and another one until 6 times which takes about 24 minutes of plain experiment.
 
 # Technical informations
 ## EEG triggers
@@ -95,17 +88,3 @@ EEG start after main instructions (in 3, 2, 1...go) and end after main loop fini
 Response is done by gaming mouse with smalles possible latency (wired) which has orange and blue label on it represents buttons to press as answer on main experimental task.
 - Orange - LMB
 - Blue - RMB
-
-## Newer versions possible modifications
-- [ ] Answers are picked in blank gap called BlankAnswer
-- [ ] Contains custom log file
-- [ ] After experiment finish there is overview screen (sketchpad)
-- [ ] New instuction stimuli (start in 3..2..1...go, this is testing you can try this out, this is pause do what you want)
-
-# Additional recommendations @MisaPlassova
- 1. Prepare and send me new instructions
- 2. Think about SB task in tablet (it takes some time to code it and test it - several weeks)
- 3. Test final experiment (behavioral) before 2nd pilot
- 4. Define training (Zácvik) - whichi stimuli and instruction and form
-
-
