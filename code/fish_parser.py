@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-stimuli_name = "1.40_B42_R58_2_red"
+stimuli_name = "1.10_B48_O52_1_orange.jpg"
 
 class FishStimuli:
 	"""
@@ -37,12 +37,12 @@ class FishStimuli:
 	
 	# Printing function
 	def fishInfo(self):
-		print (" " * 9) + "Fish stimuli parameters\n" + ("-" * 43)
-		print "Source\t\t\t"       + self.source
-		print "Difficulty\t\t"     + str(self.difficulty)
-		print "Number of blue\t\t" + str(self.blues)
-		print "Number of orange\t" + str(self.oranges)
-		print "Correct one\t\t"    + self.corr
+		print((" " * 11) + "Fish stimuli parameters\n" + ("-" * 49))
+		print("Source\t\t\t" + self.source)
+		print("Difficulty\t\t" + str(self.difficulty))
+		print("Number of blue\t\t" + str(self.blues))
+		print("Number of orange\t" + str(self.oranges))
+		print("Correct one\t\t" + self.corr)
 
 # How to use this
 a = FishStimuli(stimuli_name)
