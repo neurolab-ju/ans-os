@@ -1,5 +1,5 @@
 # Aproximal numerical system paradigm
-<img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="300">
+<img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="400">
 
 **Authors:**<br>
 
