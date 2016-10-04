@@ -1,10 +1,5 @@
 # Aproximal Numerical System Paradigm in Kids
-
-| Name             | E-mail                     | Function    |
-|------------------|----------------------------|-------------|
-| Michala Plassová | michala.plassova@seznam.cz | Main author |
-| Michal Vavrečka  | vavrecka.michal@gmail.com  | Supervisor  |
-| Michael Tesař    | michtesar@gmail.com        | Programmer  |
+Michala Plassová, Michal Vavrečka and Michael Tesař. 2016. University of South Bohemia.
 
 **Web:**
 [http://www.pf.jcu.cz/structure/departments/kpe/neurolab/](http://www.pf.jcu.cz/structure/departments/kpe/neurolab/)
