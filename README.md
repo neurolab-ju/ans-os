@@ -2,6 +2,7 @@
 <img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="350">
 
 **Authors:**
+
 | Name             | E-mail                     | Function    |
 |------------------|----------------------------|-------------|
 | Michala Plassová | michala.plassova@seznam.cz | Main author |
