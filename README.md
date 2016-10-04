@@ -1,5 +1,4 @@
 # Aproximal numerical system paradigm
-<img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="200">
 
 **Authors:**
 
@@ -38,6 +37,13 @@ You need to install OpenSesame on your operating system. Paradigm is written on 
 | Fish cluster | Main experimental stimuli               | Sketchpad | 1500 ms  | Onset            | FishCluster |
 | Blank answer | Blank black screen with + with response | Sketchpad | infinite | RT + FishCluster | BlankAnswer |
 
+## Main paradigm logic
+First goes interactive instructions and then practice trial on 6 basic trials which should not induce aproximal numerical system (keep that into real experimental task).
+
+Main loop consist of fish cluster and then blank answer screen with fixation dot in it. It repeats 10 times in one block. After each 5 blocks is setted up a inter-block pause. There is presented a coin with alert sound to experimenter. It is time for participant to rest (and get motivated by coins collecting). It has to be pressed a keyboard to continue (suggested not to be done by particpant - he/she only get a mouse). After that a 1000 Hz sinus tone for 100 ms is played again. Then goes 1500 ms blank black screen to consolidate late visual components and get seamlessly ready for experiment continuing.
+
+After main trial is finished or participant win or lose ending sequence is started. This part consists of ending sintructions, ending recording EEG.
+
 # Debugging
 In case of debugging there is variable called DEBUG in initialization sin-line script which can have only two values True/False. These sattes represent if DEBUG mdoe is on or off.
 
@@ -71,7 +77,14 @@ When True instuctions and practice sequence is skipped. And in BlankAnswer scree
 | Correct answer   | 1              |
 | Incorrect answer | 2              |
 
-EEG start after main instructions (in 3, 2, 1...go) and end after main loop finish (before ending instructions).
+EEG starts after practice sequence and end after main loop finish (before ending instructions).
+
+# Variable logging
+Logfile log all kind of variables (e.g., time_xxx represent onset of particular object). Important ones are:
+- LEVEL (which log difficulty level was played)
+- correct (if trial was or it was not correct)
+- response_time_MouseLogger (RT)
+- time_FishCluster (onset of FishCluster)
 
 # Advanced
 ## Another software
@@ -83,3 +96,5 @@ EEG start after main instructions (in 3, 2, 1...go) and end after main loop fini
 Response is done by gaming mouse with smalles possible latency (wired) which has orange and blue label on it represents buttons to press as answer on main experimental task.
 - Orange - LMB
 - Blue - RMB
+
+
