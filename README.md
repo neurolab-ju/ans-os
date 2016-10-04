@@ -38,7 +38,6 @@ When True instuctions and practice sequence is skipped. And in BlankAnswer scree
 | 2.5            | 25             |
 | 2.4            | 24             |
 | 2.3            | 23             |
-| 2.2            | 22             |
 | ...            | ...            |
 | 1.3            | 13             |
 | 1.2            | 12             |
