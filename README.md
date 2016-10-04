@@ -1,6 +1,4 @@
-# Aproximal numerical system paradigm
-
-**Authors:**
+# Aproximal Numerical System Paradigm in Kids
 
 | Name             | E-mail                     | Function    |
 |------------------|----------------------------|-------------|
@@ -14,14 +12,6 @@
 **Version:**
 ```
 1.2b
-```
-
-## How to download
-First download Github desktop app or any other Git client if needed. Then download repository by git command or in any Git application by user graphical interface.
-
-Download GitHub desktop app [here](https://desktop.github.com).
-```
-git clone https://github.com/neurolab-ju/ans-os.git
 ```
 
 ## How to run
@@ -88,13 +78,11 @@ Logfile log all kind of variables (e.g., time_xxx represent onset of particular 
 
 # Advanced
 ## Another software
-- Stimuli generator [https://github.com/Neurolab-JU/ans-generator](https://github.com/Neurolab-JU/ans-generator) - MATLAB
-- Fibonacci grid calculator [https://github.com/Neurolab-JU/fibonacci-disk-grid](https://github.com/Neurolab-JU/fibonacci-disk-grid) - MATLAB
+- Stimuli generator [https://github.com/Neurolab-JU/ans-generator](https://github.com/Neurolab-JU/ans-generator)
+- Fibonacci grid calculator [https://github.com/Neurolab-JU/fibonacci-disk-grid](https://github.com/Neurolab-JU/fibonacci-disk-grid)
 - Original version in presentation [https://github.com/Neurolab-JU/ans-generator](https://github.com/Neurolab-JU/ans-generator)
 
 ## Response collection
 Response is done by gaming mouse with smalles possible latency (wired) which has orange and blue label on it represents buttons to press as answer on main experimental task.
 - Orange - LMB
 - Blue - RMB
-
-
