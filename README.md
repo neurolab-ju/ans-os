@@ -1,5 +1,6 @@
 # Aproximal Numerical System Paradigm in Kids
 Michala Plassová, Michal Vavrečka and Michael Tesař. 2016. University of South Bohemia.
+[![DOI](https://zenodo.org/badge/68840528.svg)](https://zenodo.org/badge/latestdoi/68840528)
 
 **Web:**
 [http://www.pf.jcu.cz/structure/departments/kpe/neurolab/](http://www.pf.jcu.cz/structure/departments/kpe/neurolab/)
