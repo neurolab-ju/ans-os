@@ -6,11 +6,6 @@ Michala Plassová, Michal Vavrečka and Michael Tesař. 2016. University of Sout
 **Web:**
 [http://www.pf.jcu.cz/structure/departments/kpe/neurolab/](http://www.pf.jcu.cz/structure/departments/kpe/neurolab/)
 
-**Version:**
-```
-1.2b
-```
-
 ## How to run
 You need to install OpenSesame on your operating system. Paradigm is written on macOS Sierra but is completly cross-platform so you can run experiment on Windows, Linux and macOS.
  1. Download and install OpenSesame 3.1 at [http://osdoc.cogsci.nl/3.1/download/](http://osdoc.cogsci.nl/3.1/download/)
