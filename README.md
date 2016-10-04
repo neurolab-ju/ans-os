@@ -1,12 +1,12 @@
 # Aproximal numerical system paradigm
 <img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="350">
 
-**Authors:**<br>
-| Name             | E-mail                       | Function    |
-|------------------|------------------------------|-------------|
-| Michala Plassová | <michala.plassova@seznam.cz> | Main author |
-| Michal Vavrečka  | <vavrecka.michal@gmail.com>  | Supervisor  |
-| Michael Tesař    | <michtesar@gmail.com>        | Programmer  |
+**Authors:**
+| Name             | E-mail                     | Function    |
+|------------------|----------------------------|-------------|
+| Michala Plassová | michala.plassova@seznam.cz | Main author |
+| Michal Vavrečka  | vavrecka.michal@gmail.com  | Supervisor  |
+| Michael Tesař    | michtesar@gmail.com        | Programmer  |
 
 **Web:**
 [http://www.pf.jcu.cz/structure/departments/kpe/neurolab/](http://www.pf.jcu.cz/structure/departments/kpe/neurolab/)
