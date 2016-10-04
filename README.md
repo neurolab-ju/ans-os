@@ -1,7 +1,5 @@
 # Aproximal numerical system paradigm
-## OpenSesame experiment adaptation
-
-<img src="http://img15.deviantart.net/46b2/i/2010/229/0/f/vector_fish_by_chiragtheoo7.jpg" align="right" width="300">
+<img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="300">
 
 **Authors:**<br>
 
