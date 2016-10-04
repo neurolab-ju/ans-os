@@ -2,17 +2,18 @@
 <img src="https://github.com/neurolab-ju/ans-os/blob/master/stimuli/instruction_fishes.jpg?raw=true" align="right" width="350">
 
 **Authors:**<br>
-
-- Michala Plassova <michala.plassova@seznam.cz>
-- Michal Vavrecka <vavrecka.michal@gmail.com>
-- Michael Tesar <michtesar@gmail.com>
+| Name             | E-mail                       | Function    |
+|------------------|------------------------------|-------------|
+| Michala Plassová | <michala.plassova@seznam.cz> | Main author |
+| Michal Vavrečka  | <vavrecka.michal@gmail.com>  | Supervisor  |
+| Michael Tesař    | <michtesar@gmail.com>        | Programmer  |
 
 **Web:**
 [http://www.pf.jcu.cz/structure/departments/kpe/neurolab/](http://www.pf.jcu.cz/structure/departments/kpe/neurolab/)
 
 **Version:**
 ```
-pilot stage
+1.2b
 ```
 
 ## How to download
@@ -36,14 +37,10 @@ You need to install OpenSesame on your operating system. Paradigm is written on 
 | Fish cluster | Main experimental stimuli               | Sketchpad | 1500 ms  | Onset            | FishCluster |
 | Blank answer | Blank black screen with + with response | Sketchpad | infinite | RT + FishCluster | BlankAnswer |
 
-This is done in loop cycle for difficulty logs from 2.5 (LOG_25)to 1.1 (LOG_11). But event that it is specified in inicialization script handy variables such as:
+# Debugging
+In case of debugging there is variable called DEBUG in initialization sin-line script which can have only two values True/False. These sattes represent if DEBUG mdoe is on or off.
 
-```python
-DEBUG = True    # set debugging setter to "yes" - then all of objects act like it
-LEVEL = 24      # experiment start at log difficulty of 2.4
-BLOCK_LIMIT = 30 # maximum of 30 itteration (absolute)
-BLOCK_PAUSE = 5  # inter-block pause in each 5 block in a round
-```
+When True instuctions and practice sequence is skipped. And in BlankAnswer screen are written all parameter such as current level, current number of correct answers and number of blocks.
 
 # Technical informations
 ## EEG triggers
