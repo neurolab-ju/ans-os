@@ -20,41 +20,12 @@
 
     <section class="main-content">
       <h1>
-<a id="aproximal-numerical-system-paradigm" class="anchor" href="#aproximal-numerical-system-paradigm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Aproximal numerical system paradigm</h1>
+<a id="aproximal-numerical-system-paradigm-in-kids" class="anchor" href="#aproximal-numerical-system-paradigm-in-kids" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Aproximal Numerical System Paradigm in Kids</h1>
 
-<h2>
-<a id="opensesame-experiment-adaptation" class="anchor" href="#opensesame-experiment-adaptation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OpenSesame experiment adaptation</h2>
-
-<p><img src="http://img15.deviantart.net/46b2/i/2010/229/0/f/vector_fish_by_chiragtheoo7.jpg" align="right" width="300"></p>
-
-<p><strong>Authors:</strong><br></p>
-
-<ul>
-<li>Michala Plassova <a href="mailto:michala.plassova@seznam.cz">michala.plassova@seznam.cz</a>
-</li>
-<li>Michal Vavrecka <a href="mailto:vavrecka.michal@gmail.com">vavrecka.michal@gmail.com</a>
-</li>
-<li>Michael Tesar <a href="mailto:michtesar@gmail.com">michtesar@gmail.com</a>
-</li>
-</ul>
+<p>Michala Plassová, Michal Vavrečka and Michael Tesař. 2016. University of South Bohemia.</p>
 
 <p><strong>Web:</strong>
 <a href="http://www.pf.jcu.cz/structure/departments/kpe/neurolab/">http://www.pf.jcu.cz/structure/departments/kpe/neurolab/</a></p>
-
-<p><strong>Version:</strong></p>
-
-<pre><code>pilot stage
-</code></pre>
-
-<h2>
-<a id="how-to-download" class="anchor" href="#how-to-download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to download</h2>
-
-<p>First download Github desktop app or any other Git client if needed. Then download repository by git command or in any Git application by user graphical interface.</p>
-
-<p>Download GitHub desktop app <a href="https://desktop.github.com">here</a>.</p>
-
-<pre><code>git clone https://github.com/neurolab-ju/ans-os.git
-</code></pre>
 
 <h2>
 <a id="how-to-run" class="anchor" href="#how-to-run" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to run</h2>
@@ -103,12 +74,21 @@
 </tbody>
 </table>
 
-<p>This is done in loop cycle for difficulty logs from 2.5 (LOG_25)to 1.1 (LOG_11). But event that it is specified in inicialization script handy variables such as:</p>
+<h2>
+<a id="main-paradigm-logic" class="anchor" href="#main-paradigm-logic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main paradigm logic</h2>
 
-<div class="highlight highlight-source-python"><pre><span class="pl-c1">DEBUG</span> <span class="pl-k">=</span> <span class="pl-c1">True</span>    <span class="pl-c"># set debugging setter to "yes" - then all of objects act like it</span>
-<span class="pl-c1">LEVEL</span> <span class="pl-k">=</span> <span class="pl-c1">24</span>      <span class="pl-c"># experiment start at log difficulty of 2.4</span>
-<span class="pl-c1">BLOCK_LIMIT</span> <span class="pl-k">=</span> <span class="pl-c1">30</span> <span class="pl-c"># maximum of 30 itteration (absolute)</span>
-<span class="pl-c1">BLOCK_PAUSE</span> <span class="pl-k">=</span> <span class="pl-c1">5</span>  <span class="pl-c"># inter-block pause in each 5 block in a round</span></pre></div>
+<p>First goes interactive instructions and then practice trial on 6 basic trials which should not induce aproximal numerical system (keep that into real experimental task).</p>
+
+<p>Main loop consist of fish cluster and then blank answer screen with fixation dot in it. It repeats 10 times in one block. After each 5 blocks is setted up a inter-block pause. There is presented a coin with alert sound to experimenter. It is time for participant to rest (and get motivated by coins collecting). It has to be pressed a keyboard to continue (suggested not to be done by particpant - he/she only get a mouse). After that a 1000 Hz sinus tone for 100 ms is played again. Then goes 1500 ms blank black screen to consolidate late visual components and get seamlessly ready for experiment continuing.</p>
+
+<p>After main trial is finished or participant win or lose ending sequence is started. This part consists of ending sintructions, ending recording EEG.</p>
+
+<h1>
+<a id="debugging" class="anchor" href="#debugging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Debugging</h1>
+
+<p>In case of debugging there is variable called DEBUG in initialization sin-line script which can have only two values True/False. These sattes represent if DEBUG mdoe is on or off.</p>
+
+<p>When True instuctions and practice sequence is skipped. And in BlankAnswer screen are written all parameter such as current level, current number of correct answers and number of blocks.</p>
 
 <h1>
 <a id="technical-informations" class="anchor" href="#technical-informations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technical informations</h1>
@@ -217,7 +197,19 @@
 </tbody>
 </table>
 
-<p>EEG start after main instructions (in 3, 2, 1...go) and end after main loop finish (before ending instructions).</p>
+<p>EEG starts after practice sequence and end after main loop finish (before ending instructions).</p>
+
+<h1>
+<a id="variable-logging" class="anchor" href="#variable-logging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable logging</h1>
+
+<p>Logfile log all kind of variables (e.g., time_xxx represent onset of particular object). Important ones are:</p>
+
+<ul>
+<li>LEVEL (which log difficulty level was played)</li>
+<li>correct (if trial was or it was not correct)</li>
+<li>response_time_MouseLogger (RT)</li>
+<li>time_FishCluster (onset of FishCluster)</li>
+</ul>
 
 <h1>
 <a id="advanced" class="anchor" href="#advanced" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Advanced</h1>
@@ -226,8 +218,10 @@
 <a id="another-software" class="anchor" href="#another-software" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Another software</h2>
 
 <ul>
-<li>Stimuli generator <a href="https://github.com/Neurolab-JU/ans-generator">https://github.com/Neurolab-JU/ans-generator</a> - MATLAB</li>
-<li>Fibonacci grid calculator <a href="https://github.com/Neurolab-JU/fibonacci-disk-grid">https://github.com/Neurolab-JU/fibonacci-disk-grid</a> - MATLAB</li>
+<li>Stimuli generator <a href="https://github.com/Neurolab-JU/ans-generator">https://github.com/Neurolab-JU/ans-generator</a>
+</li>
+<li>Fibonacci grid calculator <a href="https://github.com/Neurolab-JU/fibonacci-disk-grid">https://github.com/Neurolab-JU/fibonacci-disk-grid</a>
+</li>
 <li>Original version in presentation <a href="https://github.com/Neurolab-JU/ans-generator">https://github.com/Neurolab-JU/ans-generator</a>
 </li>
 </ul>
