@@ -58,7 +58,7 @@ a {
   text-align: center;
   background-color: #159957;
   background-size: 100%;
-  background-position: center; 
+  background-position: top center; 
   background-image: url("https://raw.githubusercontent.com/neurolab-ju/ans-os/gh-pages/background.jpg");
 }
 
