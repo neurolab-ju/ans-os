@@ -60,10 +60,6 @@ a {
   background-size: 100%;
   background-position: center; 
   background-image: url("https://raw.githubusercontent.com/neurolab-ju/ans-os/master/stimuli/instruction_fishes.jpg");
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
   filter: blur(5px);
 }
 
