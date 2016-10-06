@@ -58,12 +58,14 @@ a {
   text-align: center;
   background-color: #159957;
   background-size: 100%;
-  background-image: url("https://raw.githubusercontent.com/neurolab-ju/ans-os/master/stimuli/instruction_fishes.jpg");}
+  background-position: center; 
+  background-image: url("https://raw.githubusercontent.com/neurolab-ju/ans-os/master/stimuli/instruction_fishes.jpg");
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
+}
 
 @media screen and (min-width: 64em) {
   .page-header {
