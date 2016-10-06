@@ -57,6 +57,7 @@ a {
   color: #fff;
   text-align: center;
   background-color: #159957;
+  background-size:100%;
   background-image: url("https://raw.githubusercontent.com/neurolab-ju/ans-os/master/stimuli/instruction_fishes.jpg"); }
 
 @media screen and (min-width: 64em) {
